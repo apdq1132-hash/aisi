@@ -469,7 +469,7 @@
 
             function renderChapterContent(index, storyId) {
                 const ch = window.currentChapters[index];
-                document.getElementById('story-detail-top-bar').innerHTML = `<span onclick="window.location.href = window.location.pathname" style="cursor:pointer; font-weight:bold;">رجوع</span><i class="fa-solid fa-ellipsis-vertical"></i>`;
+                document.getElementById('story-detail-top-bar').innerHTML = `<span onclick="openStoryDetail({id: '${storyId}'}, null, 'chapters')" style="cursor:pointer; font-weight:bold;">رجوع</span><i class="fa-solid fa-ellipsis-vertical"></i>`;
                 document.getElementById('detail-content').innerHTML = `
                     <div style="padding: 20px; font-size: 16px; line-height: 1.9; color: #222; white-space: pre-wrap;">${ch.content}</div>
                 `;
@@ -809,7 +809,7 @@
                 items.forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
-                if (index === 0) window.location.href = window.location.pathname;
+                if (index === 0) content.style.display = 'block';
                 else if (index === 1) searchScreen.style.display = 'block';
                 else if (index === 2) writeScreen.style.display = 'block';
                 else if (index === 3) {
