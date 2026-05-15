@@ -119,7 +119,7 @@
 
         <div id="story-detail-screen">
             <div class="top-bar" id="story-detail-top-bar">
-                <i class="fa-solid fa-arrow-right" onclick="location.reload()" style="font-size: 20px; cursor: pointer;"></i>
+                <span></span>
                 <i class="fa-solid fa-ellipsis-vertical"></i>
             </div>
             <div id="detail-content"></div>
@@ -395,10 +395,10 @@
                 const isSummary = viewType === 'summary';
                 const chList = chapters || [];
                 
-                // تحديث الـ Top Bar بناءً على الحالة
+                // تحديث الـ Top Bar بناءً على الحالة وحذف أيقونة الرجوع
                 const topBar = document.getElementById('story-detail-top-bar');
                 if (viewType === 'summary') {
-                    topBar.innerHTML = `<i class="fa-solid fa-arrow-right" onclick="location.reload()" style="font-size: 20px; cursor: pointer;"></i><i class="fa-solid fa-ellipsis-vertical"></i>`;
+                    topBar.innerHTML = `<span></span><i class="fa-solid fa-ellipsis-vertical"></i>`;
                 } else if (viewType === 'chapters') {
                     topBar.innerHTML = `<span></span><i class="fa-solid fa-ellipsis-vertical"></i>`;
                 }
@@ -469,7 +469,7 @@
 
             function renderChapterContent(index, storyId) {
                 const ch = window.currentChapters[index];
-                document.getElementById('story-detail-top-bar').innerHTML = `<span onclick="openStoryDetail({id: '${storyId}'}, null, 'chapters')" style="cursor:pointer; font-weight:bold;">رجوع</span><i class="fa-solid fa-ellipsis-vertical"></i>`;
+                document.getElementById('story-detail-top-bar').innerHTML = `<span onclick="openStoryDetail({id: '${storyId}'})" style="cursor:pointer; font-weight:bold;">رجوع</span><i class="fa-solid fa-ellipsis-vertical"></i>`;
                 document.getElementById('detail-content').innerHTML = `
                     <div style="padding: 20px; font-size: 16px; line-height: 1.9; color: #222; white-space: pre-wrap;">${ch.content}</div>
                 `;
