@@ -353,8 +353,8 @@
                             
                             let htmlContent = `<div class="story-item" style="background-image: url(${story.image_data});"></div>`;
                             
-                            // إضافة العين والمشاهدات للرف الثالث (index 2) والرابع (index 3) والخامس (index 4)
-                            if (index === 2 || index === 3 || index === 4) {
+                            // إضافة العين والمشاهدات للرف الثالث (index 2) والرابع (index 3)
+                            if (index === 2 || index === 3) {
                                 htmlContent += `<div style="text-align: center; margin-top: 5px; font-size: 12px; color: #666; font-weight: bold;"><i class="fa-solid fa-eye"></i> ${story.views || 0}</div>`;
                             }
                             
@@ -377,7 +377,7 @@
             const { data: chapters } = await _supabase.from('chapters').select('*').eq('story_id', story.id).order('id', { ascending: true });
             
             window.currentChapters = chapters;
-            _supabase.from('stories').update({ views: (storyData.views || 0) + 1 }).eq('id', storyData.id);
+            await _supabase.from('stories').update({ views: (storyData.views || 0) + 1 }).eq('id', storyData.id);
             
             document.getElementById('main-app').style.display = 'block';
             content.style.display = 'none';
