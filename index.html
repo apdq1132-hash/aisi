@@ -514,12 +514,19 @@
             });
 
             const recCont = document.getElementById('recommended-container');
-            const { data: recs } = await _supabase.from('stories').select('*').limit(10);
+            let dataForRec = window.storiesCache;
+            if(!dataForRec || dataForRec.length === 0) {
+                const { data } = await _supabase.from('stories').select('*');
+                dataForRec = data || [];
+            }
+            
+            let shuffledRecs = [...dataForRec].sort(() => 0.5 - Math.random()).slice(0, 10);
             recCont.innerHTML = '';
-            (recs || []).forEach(s => {
+            
+            shuffledRecs.forEach(s => {
                 const w = document.createElement('div');
                 w.style.minWidth = '100px';
-                w.innerHTML = `<div class="story-item" style="background-image: url(${s.image_data});</div>`;
+                w.innerHTML = `<div class="story-item" style="background-image: url(${s.image_data});"></div>`;
                 w.onclick = () => {
                     const originalW = w.innerHTML;
                     w.innerHTML = `<div class="story-item" style="display:flex; align-items:center; justify-content:center;"><i class="fa-solid fa-spinner fa-spin" style="color:#ff500a;"></i></div>`;
@@ -823,4 +830,3 @@
         checkEditor();
     </script>
 </body>
-</html>
