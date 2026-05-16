@@ -196,6 +196,16 @@
             if (data.session) {
                 currentUserId = data.session.user.id;
                 
+                // منطق قراءة لغة الهاتف وتحديد الاتجاه تلقائياً
+                const userLang = navigator.language || navigator.userLanguage;
+                if (userLang.startsWith('ar')) {
+                    document.documentElement.dir = 'rtl';
+                    document.documentElement.lang = 'ar';
+                } else {
+                    document.documentElement.dir = 'ltr';
+                    document.documentElement.lang = userLang.split('-')[0];
+                }
+
                 // التحقق مما إذا كان الرابط يحتوي على ID فصل لفتحه تلقائياً لإجبار الإعلان
                 const urlParams = new URLSearchParams(window.location.search);
                 const chapterId = urlParams.get('chapter_id');
@@ -756,7 +766,7 @@
                         content: editorArea.value 
                     }).eq('id', editTargetId);
                     shouldReload = true;
-                    showCustomAlert('تم النشر بنجاح');
+                    showCustomAlert('تم التعديل بنجاح');
                 } else if (selectedStoryId) {
                     await _supabase.from('chapters').insert([{ 
                         story_id: selectedStoryId, 
